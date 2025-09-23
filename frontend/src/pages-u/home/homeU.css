@@ -1,0 +1,149 @@
+.home {
+  width: 100%;
+  font-family: Arial, sans-serif;
+}
+
+/* Hero principal */
+.hero {
+  background: linear-gradient(135deg, #0d6efd 0%, #007bff 100%);
+  color: #fff;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.hero-btn {
+  background: #fff;
+  color: #0d6efd;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+.hero-btn:hover {
+  background: #cce3ff;
+}
+
+/* Categorías */
+.categories {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.category-card {
+  background: #f8f9fa;
+  padding: 2rem 1rem;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #0d6efd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.category-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Productos populares */
+.popular-products {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+  text-align: center;
+}
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.product-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+}
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+.product-card h3 {
+  margin: 0.5rem 0;
+  color: #0d6efd;
+}
+.product-card p {
+  color: #333;
+  font-weight: bold;
+}
+
+/* Sobre nosotros */
+.about-us {
+  background: #f8f9fa;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+.about-us h2 {
+  color: #0d6efd;
+  margin-bottom: 1rem;
+}
+.about-us p {
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Call to Action */
+.cta {
+  background: #0d6efd;
+  color: #fff;
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.cta p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.cta-btn {
+  background: #fff;
+  color: #0d6efd;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+.cta-btn:hover {
+  background: #cce3ff;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  .cta h2 {
+    font-size: 1.5rem;
+  }
+}
