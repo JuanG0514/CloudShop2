@@ -1,73 +1,221 @@
-
+/* Header base */
 .header {
-  background-color: #0d6efd; 
-  color: #fff; 
-  width: 100%;
-  padding: 0.5rem 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background: #0d6efd;
+  color: #fff;
+  display: flex;
+  justify-content: space-between; /* logo izq y acciones der */
+  align-items: center;
+  padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 1000;
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Logo */
 .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Contenedor a la derecha */
+.header-right {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-.logo-img {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-}
-
-.logo-text {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
+  gap: 2rem;
 }
 
 /* Navegación */
-.nav {
+.nav-links {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
 }
 
-.nav-link {
+/* Links de navegación con línea */
+.nav-item {
+  position: relative;
   text-decoration: none;
   color: #fff;
+  font-size: 1.1rem;
   font-weight: 500;
   transition: color 0.3s ease;
+  padding-bottom: 4px;
 }
 
-.nav-link:hover {
-  color: #cce3ff; /* tono más claro al pasar el mouse */
+.nav-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #fff;
+  transition: width 0.3s ease;
 }
 
-.active {
-  border-bottom: 2px solid #fff; /* para resaltar link activo */
-  padding-bottom: 2px;
+.nav-item:hover::after,
+.nav-item.active::after {
+  width: 100%;
 }
 
-/* Responsivo */
+.nav-item:hover {
+  color: #cce5ff;
+}
+
+/* Carrito */
+.cart-icon {
+  background: #fff;
+  color: #0d6efd;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cart-icon:hover {
+  background: #cce5ff;
+  color: #084298;
+}
+
+.cart-count {
+  background: #dc3545;
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+/* Menú de usuario */
+.user-menu {
+  position: relative;
+  cursor: pointer;
+}
+
+.user-icon {
+  font-size: 1.5rem;
+  background: #fff;
+  color: #0d6efd;
+  padding: 0.4rem 0.6rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-icon:hover {
+  background: #cce5ff;
+  color: #084298;
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #fff;
+  color: #333;
+  min-width: 150px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 2000;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: #333;
+  transition: background 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background: #f1f1f1;
+  color: #0d6efd;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .header-container {
+  .header {
     flex-direction: column;
     align-items: flex-start;
+    padding: 1rem;
   }
-  .nav {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+
+  .header-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .cart-icon {
+    padding: 0.4rem 0.8rem;
+  }
+}
+/* 🔹 Contenedor del carrito */
+.cart-wrapper {
+  position: relative;         /* Para posicionar la badge */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* 🔹 Icono del carrito como circulito */
+.cart-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;         /* Hace el circulito */
+  background-color: #fff;     /* Fondo blanco */
+  border: 2px solid #0d6efd;  /* Borde azul (puedes cambiarlo) */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;            /* Tamaño del ícono */
+  color: #0d6efd;
+  transition: all 0.3s ease;  /* Animación hover */
+}
+
+.cart-circle:hover {
+  background-color: #0d6efd;
+  color: #fff;                /* Ícono se vuelve blanco al pasar mouse */
+}
+
+/* 🔹 Badge del carrito */
+.cart-badge {
+  position: absolute;
+  top: -5px;        /* Ajusta la posición arriba */
+  right: -5px;      /* Ajusta la posición a la derecha */
+  background-color: #dc3545; /* Rojo tipo notificación */
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 50%; /* Badge redonda */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: bounce 0.3s ease; /* Animación leve cuando aparece */
+}
+
+/* 🔹 Animación de badge */
+@keyframes bounce {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
   }
 }

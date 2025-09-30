@@ -1,41 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.png";
 import "./header.css";
 
-const Header = () => {
+const Header = ({ cartItems, onCartClick }) => {
+  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
   return (
     <header className="header">
-      <div className="header-container">
-      
-        <div className="logo">
-          
-          <img src={logo} alt="Logo" className="logo-img" />
-          <h1 className="logo-text">CloudShop</h1>
-        </div>
+      {/* Logo */}
+      <div className="logo">Cloud Shop</div>
 
-        {/* Navegación */}
-        <nav className="nav">
-          <NavLink 
-            to="/" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-          >
+      <div className="header-right">
+        <nav className="nav-links">
+          <NavLink to="/" className="nav-item">
             Inicio
           </NavLink>
-          <NavLink 
-            to="/productos" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-          >
+          <NavLink to="/productos" className="nav-item">
             Productos
           </NavLink>
-          <NavLink 
-            to="/carrito" 
-            className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
-          >
-           Carrito
-          </NavLink>
-          
         </nav>
+
+        {/* Carrito circulito */}
+        <div className="cart-wrapper" onClick={onCartClick}>
+          <div className="cart-circle">🛒</div>
+          {totalItems > 0 && (
+            <span className="cart-badge">{totalItems}</span>
+          )}
+        </div>
+
+        {/* Menú de usuario */}
+        <div
+          className="user-menu"
+          onMouseEnter={() => setDropdownOpen(true)}
+          onMouseLeave={() => setDropdownOpen(false)}
+        >
+          <div className="user-icon">⚙️</div>
+          {dropdownOpen && (
+            <div className="dropdown-menu">                 
+              <NavLink to="/perfil" className="dropdown-item">
+                Ver perfil
+              </NavLink>
+              <NavLink to="/logout" className="dropdown-item">
+                Cerrar sesión
+              </NavLink>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
