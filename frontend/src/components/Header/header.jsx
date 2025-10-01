@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import "./header.css";
+import "./Header.css";
+import logo from '../../assets/logo.png'
 
-const Header = ({ cartItems, onCartClick }) => {
+
+const Header = ({ cartItems, onCartClick, onProfileClick }) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <header className="header">
       {/* Logo */}
-      <div className="logo">Cloud Shop</div>
+      <div className="logo">
+        <img src={logo} alt="Cloud Shop Logo" />
+        <span>Cloud Shop</span>
+      </div>
 
+      {/* Navegación */}
       <div className="header-right">
         <nav className="nav-links">
           <NavLink to="/" className="nav-item">
@@ -21,31 +28,29 @@ const Header = ({ cartItems, onCartClick }) => {
           </NavLink>
         </nav>
 
-        {/* Carrito circulito */}
+        {/* Carrito */}
         <div className="cart-wrapper" onClick={onCartClick}>
           <div className="cart-circle">🛒</div>
-          {totalItems > 0 && (
-            <span className="cart-badge">{totalItems}</span>
-          )}
+          {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
         </div>
 
-        {/* Menú de usuario */}
-        <div
-          className="user-menu"
-          onMouseEnter={() => setDropdownOpen(true)}
-          onMouseLeave={() => setDropdownOpen(false)}
-        >
-          <div className="user-icon">⚙️</div>
-          {dropdownOpen && (
-            <div className="dropdown-menu">                 
-              <NavLink to="/perfil" className="dropdown-item">
-                Ver perfil
-              </NavLink>
-              <NavLink to="/logout" className="dropdown-item">
-                Cerrar sesión
-              </NavLink>
-            </div>
-          )}
+        {/* Menú hamburguesa */}
+        <div className="hamburger-container">
+          <div
+            className={`hamburger ${menuOpen ? "active" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+          >
+            ☰
+          </div>
+
+          <div className={`hamburger-menu ${menuOpen ? "show" : ""}`}>
+            <button className="dropdown-item" onClick={onProfileClick}>
+              Ver perfil
+            </button>
+            <NavLink to="/logout" className="dropdown-item">
+              Cerrar sesión
+            </NavLink>
+          </div>
         </div>
       </div>
     </header>

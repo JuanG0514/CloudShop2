@@ -3,7 +3,7 @@
   background: #0d6efd;
   color: #fff;
   display: flex;
-  justify-content: space-between; /* logo izq y acciones der */
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   position: sticky;
@@ -12,11 +12,20 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Logo */
+/* Logo (imagen + texto) */
 .logo {
-  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.6rem;
   font-weight: bold;
   cursor: pointer;
+}
+
+.logo img {
+  width: 60px;
+  height: 40px;
+  object-fit: contain;
 }
 
 /* Contenedor a la derecha */
@@ -26,13 +35,12 @@
   gap: 2rem;
 }
 
-/* Navegación */
+/* Links de navegación con línea */
 .nav-links {
   display: flex;
   gap: 2rem;
 }
 
-/* Links de navegación con línea */
 .nav-item {
   position: relative;
   text-decoration: none;
@@ -63,58 +71,73 @@
   color: #cce5ff;
 }
 
-/* Carrito */
-.cart-icon {
-  background: #fff;
-  color: #0d6efd;
-  padding: 0.5rem 1rem;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.cart-icon:hover {
-  background: #cce5ff;
-  color: #084298;
-}
-
-.cart-count {
-  background: #dc3545;
-  color: #fff;
-  padding: 0.15rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: bold;
-}
-
-/* Menú de usuario */
-.user-menu {
+/* 🔹 Carrito redondo con badge */
+.cart-wrapper {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
-.user-icon {
-  font-size: 1.5rem;
-  background: #fff;
-  color: #0d6efd;
-  padding: 0.4rem 0.6rem;
+.cart-circle {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #0d6efd;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 20px;
+  color: #0d6efd;
+  transition: all 0.3s ease;
 }
 
-.user-icon:hover {
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #dc3545;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 3px 6px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  animation: bounce 0.3s ease;
+}
+
+@keyframes bounce {
+  0% { transform: scale(0.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 🔹 Menú hamburguesa */
+.hamburger-container {
+  position: relative;
+}
+
+.hamburger {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #e9e9e9;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, color 0.3s ease;
+  height: 30px;
+}
+
+.hamburger:hover {
   background: #cce5ff;
   color: #084298;
 }
 
-/* Dropdown */
-.dropdown-menu {
+/* Dropdown del menú hamburguesa */
+.hamburger-menu {
   position: absolute;
   top: 100%;
   right: 0;
@@ -122,23 +145,32 @@
   color: #333;
   min-width: 150px;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
   padding: 0.5rem 0;
-  display: flex;
+  display: none;
   flex-direction: column;
   z-index: 2000;
 }
 
-.dropdown-item {
+.hamburger-menu .dropdown-item {
   padding: 0.5rem 1rem;
   text-decoration: none;
   color: #333;
   transition: background 0.3s ease;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
 }
 
-.dropdown-item:hover {
+.hamburger-menu .dropdown-item:hover {
   background: #f1f1f1;
   color: #0d6efd;
+}
+
+/* Mostrar menú con clase show */
+.hamburger-menu.show {
+  display: flex;
 }
 
 /* Responsive */
@@ -158,64 +190,5 @@
   .nav-links {
     flex-direction: column;
     gap: 1rem;
-  }
-
-  .cart-icon {
-    padding: 0.4rem 0.8rem;
-  }
-}
-/* 🔹 Contenedor del carrito */
-.cart-wrapper {
-  position: relative;         /* Para posicionar la badge */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-/* 🔹 Icono del carrito como circulito */
-.cart-circle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;         /* Hace el circulito */
-  background-color: #fff;     /* Fondo blanco */
-  border: 2px solid #0d6efd;  /* Borde azul (puedes cambiarlo) */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;            /* Tamaño del ícono */
-  color: #0d6efd;
-  transition: all 0.3s ease;  /* Animación hover */
-}
-
-.cart-circle:hover {
-  background-color: #0d6efd;
-  color: #fff;                /* Ícono se vuelve blanco al pasar mouse */
-}
-
-/* 🔹 Badge del carrito */
-.cart-badge {
-  position: absolute;
-  top: -5px;        /* Ajusta la posición arriba */
-  right: -5px;      /* Ajusta la posición a la derecha */
-  background-color: #dc3545; /* Rojo tipo notificación */
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 3px 6px;
-  border-radius: 50%; /* Badge redonda */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  animation: bounce 0.3s ease; /* Animación leve cuando aparece */
-}
-
-/* 🔹 Animación de badge */
-@keyframes bounce {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
   }
 }

@@ -1,0 +1,21 @@
+.products-admin {
+  padding: 20px;
+}
+
+.products-admin table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.products-admin th,
+.products-admin td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.products-admin th {
+  background: #2c3e50;
+  color: #fff;
+}

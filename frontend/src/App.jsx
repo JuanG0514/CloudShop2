@@ -1,25 +1,37 @@
 import React, { useState } from "react";
-import Swal from 'sweetalert2';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import HomeU from "./pages-u/home/homeU";
+import Swal from "sweetalert2";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Header from "./components/Header/header";
+import HomeU from "./pages-u/home/HomeU";
 import ProductsU from "./pages-u/Products-u/ProductsU";
 import CartModal from "./components/cart/Cart";
-import Profile from "./components/profile/profile"; // nuestro modal
+import Profile from "./components/profile/profile";
+import LoginPage from "./Login-page/login-page";
+import AdminPage from "./pages-a/AdminPage";
+import "./App.css";
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  // Simulación usuario logueado desde backend
-  const [user] = useState({
-    name: "Juan Pérez",
-    email: "juanperez@example.com",
-    role: "Cliente"
-  });
+  // 🔑 Usuario logueado
+  const [user, setUser] = useState(null);
 
+  // 👉 Agregar producto (si no hay login, pide login)
   const addToCart = (product) => {
+    if (!user) {
+      Swal.fire({
+        title: "Inicia sesión",
+        text: "Debes iniciar sesión para agregar productos al carrito.",
+        icon: "warning",
+        confirmButtonText: "Ir al login",
+      }).then(() => {
+        window.location.href = "/login";
+      });
+      return;
+    }
+
     setCartItems((prevItems) => {
       const existing = prevItems.find((item) => item.id === product.id);
       if (existing) {
@@ -32,10 +44,13 @@ const App = () => {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
+
     Swal.fire({
-      title: 'Agregado',
-      text: 'Producto agregado al carrito',
-      icon: 'success',
+      title: "Agregado",
+      text: "Producto agregado al carrito",
+      icon: "success",
+      timer: 1200,
+      showConfirmButton: false,
     });
   };
 
@@ -63,21 +78,49 @@ const App = () => {
 
   return (
     <Router>
-      <Header
-        cartItems={cartItems}
-        onCartClick={() => setIsCartOpen(true)}
-        onProfileClick={() => setIsProfileOpen(true)} // botón perfil en header
-      />
+      {/* Header solo si no es admin */}
+      {(!user || user.role !== "admin") && (
+        <Header
+          cartItems={cartItems}
+          onCartClick={() => {
+            if (!user) {
+              window.location.href = "/login";
+            } else {
+              setIsCartOpen(true);
+            }
+          }}
+          onProfileClick={() => {
+            if (!user) {
+              window.location.href = "/login";
+            } else {
+              setIsProfileOpen(true);
+            }
+          }}
+        />
+      )}
 
       <Routes>
+        {/* Login */}
+        <Route path="/login" element={<LoginPage setUser={setUser} />} />
+
+        {/* Usuario normal */}
         <Route path="/" element={<HomeU />} />
+        <Route path="/productos" element={<ProductsU addToCart={addToCart} />} />
+
+        {/* Admin protegido */}
         <Route
-          path="/productos"
-          element={<ProductsU addToCart={addToCart} />}
+          path="/admin/*"
+          element={
+            user && user.role === "admin" ? (
+              <AdminPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
       </Routes>
 
-      {/* Carrito modal */}
+      {/* Modal carrito */}
       {isCartOpen && (
         <CartModal
           cartItems={cartItems}
@@ -88,12 +131,9 @@ const App = () => {
         />
       )}
 
-      {/* Perfil modal */}
-      {isProfileOpen && (
-        <Profile
-          user={user}
-          onClose={() => setIsProfileOpen(false)}
-        />
+      {/* Modal perfil */}
+      {isProfileOpen && user && (
+        <Profile user={user} onClose={() => setIsProfileOpen(false)} />
       )}
     </Router>
   );

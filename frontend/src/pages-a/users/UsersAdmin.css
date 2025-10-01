@@ -1,0 +1,20 @@
+.users-admin {
+  padding: 20px;
+}
+
+.users-admin table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.users-admin th,
+.users-admin td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.users-admin th {
+  background: #2c3e50;
+  color: #fff;
+}
